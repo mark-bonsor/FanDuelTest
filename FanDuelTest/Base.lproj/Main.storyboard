@@ -17,8 +17,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="736" height="414"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OjA-pP-ZNy">
+                                <rect key="frame" x="108" y="290" width="200" height="35"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <size key="titleShadowOffset" width="2.2250738585072014e-308" height="0.0"/>
+                                <state key="normal" title="Player 1"/>
+                                <connections>
+                                    <action selector="choosePlayer1" destination="BYZ-38-t0r" eventType="touchUpInside" id="HQ5-ui-rFs"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x6t-uX-1ZA">
-                                <rect key="frame" x="391" y="350" width="320" height="45"/>
+                                <rect key="frame" x="429" y="290" width="200" height="35"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <size key="titleShadowOffset" width="2.2250738585072014e-308" height="0.0"/>
                                 <state key="normal" title="Player 2"/>
@@ -26,19 +35,66 @@
                                     <action selector="choosePlayer2" destination="BYZ-38-t0r" eventType="touchUpInside" id="RUE-2u-lHz"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZTF-Jj-3cf">
-                                <rect key="frame" x="25" y="25" width="320" height="320"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tZM-vg-HhM">
-                                <rect key="frame" x="391" y="25" width="320" height="320"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OjA-pP-ZNy">
-                                <rect key="frame" x="25" y="350" width="320" height="45"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GpA-Lj-faH">
+                                <rect key="frame" x="108" y="87" width="200" height="200"/>
+                                <size key="titleShadowOffset" width="2.2250738585072014e-308" height="0.0"/>
+                                <state key="normal" title="Player 1 img"/>
+                                <connections>
+                                    <action selector="choosePlayer1" destination="BYZ-38-t0r" eventType="touchUpInside" id="cjb-tW-IEd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RKS-dY-PWp">
+                                <rect key="frame" x="429" y="87" width="200" height="200"/>
+                                <size key="titleShadowOffset" width="2.2250738585072014e-308" height="0.0"/>
+                                <state key="normal" title="Player 2 img"/>
+                                <connections>
+                                    <action selector="choosePlayer2" destination="BYZ-38-t0r" eventType="touchUpInside" id="Jpr-2q-7eQ"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="WHO HAS THE GREATER FPPG?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCy-eu-KHb">
+                                <rect key="frame" x="82" y="36" width="571" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2LY-Yu-LDq">
+                                <rect key="frame" x="385" y="364" width="50" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CORRECT!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="otz-Ld-5RH">
+                                <rect key="frame" x="278" y="172" width="180" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8O-64-tUU">
+                                <rect key="frame" x="133" y="320" width="150" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KfS-BP-hts">
+                                <rect key="frame" x="454" y="320" width="150" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RjX-4w-wYg">
+                                <rect key="frame" x="300" y="364" width="89" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oDT-MV-QJA">
+                                <rect key="frame" x="287" y="224" width="162" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <size key="titleShadowOffset" width="2.2250738585072014e-308" height="0.0"/>
-                                <state key="normal" title="Player 1"/>
+                                <state key="normal" title="Next Selection"/>
                                 <connections>
-                                    <action selector="choosePlayer1" destination="BYZ-38-t0r" eventType="touchUpInside" id="HQ5-ui-rFs"/>
+                                    <action selector="choosePlayer1" destination="BYZ-38-t0r" eventType="touchUpInside" id="USr-Mk-U5j"/>
+                                    <action selector="newSelection" destination="BYZ-38-t0r" eventType="touchUpInside" id="QsU-c4-itQ"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -50,10 +106,16 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
+                        <outlet property="btnNewSelection" destination="oDT-MV-QJA" id="PvU-Ua-Lse"/>
                         <outlet property="btnPlayer1" destination="OjA-pP-ZNy" id="pYF-Td-aBa"/>
+                        <outlet property="btnPlayer1_img" destination="GpA-Lj-faH" id="Pfg-fz-5SE"/>
                         <outlet property="btnPlayer2" destination="x6t-uX-1ZA" id="Rpc-9i-hEh"/>
-                        <outlet property="imgPlayer1" destination="ZTF-Jj-3cf" id="HZy-Dt-ahc"/>
-                        <outlet property="imgPlayer2" destination="tZM-vg-HhM" id="tGL-5e-jnX"/>
+                        <outlet property="btnPlayer2_img" destination="RKS-dY-PWp" id="7pv-8J-UAl"/>
+                        <outlet property="choiceResult" destination="otz-Ld-5RH" id="bvv-t7-bls"/>
+                        <outlet property="gameInstruction" destination="dCy-eu-KHb" id="l1H-gw-W2a"/>
+                        <outlet property="gameScore" destination="2LY-Yu-LDq" id="6Br-bP-Ea3"/>
+                        <outlet property="player1_fppg" destination="h8O-64-tUU" id="SIX-bR-vLG"/>
+                        <outlet property="player2_fppg" destination="KfS-BP-hts" id="RCL-8r-xFX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

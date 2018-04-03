@@ -21,7 +21,11 @@
 @property (nonatomic,strong) PlayerObject *randomPlayer1;
 @property (nonatomic,strong) PlayerObject *randomPlayer2;
 
+@property (nonatomic) int currentGameScore;
+@property (nonatomic) BOOL awaitingChoice;
+
 @end
+
 
 @implementation ViewController
 
@@ -30,7 +34,10 @@
     
     [self load_playerJSON];
     
-    [self selectRandomPlayers];
+    _currentGameScore = 0;
+    [self showGameScore];
+    
+    [self selectRandomPlayers_withNoDraw];
     
 }
 
@@ -66,9 +73,9 @@
                 NSDictionary *imageDict = [aDictionary objectForKey:@"images"];
                 NSDictionary *defaultImageDict = [imageDict objectForKey:@"default"];
                 
-                int fppgValue = 0;
+                float fppgValue = 0.0f;
                 if ([aDictionary objectForKey:@"fppg"]!=[NSNull null]) {
-                    fppgValue = [[aDictionary objectForKey:@"fppg"] intValue];
+                    fppgValue = [[aDictionary objectForKey:@"fppg"] floatValue];
                 }
                 
                 PlayerObject *currenPlayer = [[PlayerObject alloc]initWithId:[[aDictionary objectForKey:@"id"]intValue]
@@ -94,7 +101,19 @@
     return playersLoaded;
 }
 
+-(void)selectRandomPlayers_withNoDraw{
+    
+    [self selectRandomPlayers];
+    
+    while (_randomPlayer1.fppg == _randomPlayer2.fppg) {
+        [self selectRandomPlayers];
+    }
+    
+}
+
 -(void)selectRandomPlayers {
+    
+    [self prepareForNewPlayers];
     
     int n = (int)self.playerObjectHolderArray.count;
     
@@ -113,9 +132,54 @@
     NSString *player1_imgURL = _randomPlayer1.defaultImageURL;
     NSString *player2_imgURL = _randomPlayer2.defaultImageURL;
     
-    _imgPlayer1.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:player1_imgURL]]];
-    _imgPlayer2.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:player2_imgURL]]];
+    UIImage *player1_image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:player1_imgURL]]];
+    UIImage *player2_image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:player2_imgURL]]];
     
+    [_btnPlayer1_img setImage:player1_image forState:UIControlStateNormal];
+    [_btnPlayer2_img setImage:player2_image forState:UIControlStateNormal];
+    
+    _awaitingChoice = TRUE;
+    
+}
+
+
+- (void)showResults:(BOOL)correctGuess {
+    
+    if (correctGuess){
+        _currentGameScore = _currentGameScore + 1;
+        _choiceResult.text = @"CORRECT!";
+        [self showGameScore];
+    } else {
+        _choiceResult.text = @"WRONG!";
+    }
+    
+    // format display of fppg to fixed number of decimal places
+    _player1_fppg.text = [NSString stringWithFormat:@"%.3f", _randomPlayer1.fppg];
+    _player2_fppg.text = [NSString stringWithFormat:@"%.3f", _randomPlayer2.fppg];
+    
+    _player1_fppg.alpha = 1;
+    _player2_fppg.alpha = 1;
+    
+    _choiceResult.alpha = 1;
+    _btnNewSelection.alpha = 1;
+}
+
+
+- (void)showGameScore {
+    _gameScore.text = [NSString stringWithFormat:@"%i", _currentGameScore];
+}
+
+
+-(void)prepareForNewPlayers {
+    
+    _player1_fppg.text = @"";
+    _player2_fppg.text = @"";
+    _choiceResult.text = @"";
+    
+    _player1_fppg.alpha = 0;
+    _player2_fppg.alpha = 0;
+    _choiceResult.alpha = 0;
+    _btnNewSelection.alpha = 0;
 }
 
 
@@ -123,10 +187,32 @@
 
 - (IBAction)choosePlayer1 {
     
+    if (_awaitingChoice) {
+        _awaitingChoice = FALSE;
+        
+        [self showResults:(_randomPlayer1.fppg > _randomPlayer2.fppg)];
+        
+    }
 }
+
 - (IBAction)choosePlayer2 {
     
+    if (_awaitingChoice) {
+        _awaitingChoice = FALSE;
+        
+        [self showResults:(_randomPlayer2.fppg > _randomPlayer1.fppg)];
+        
+    }
 }
+
+- (IBAction)newSelection {
+    if (!_awaitingChoice) {
+        _awaitingChoice = TRUE;
+        [self selectRandomPlayers_withNoDraw];
+    }
+}
+
+
 
 
 #pragma mark -

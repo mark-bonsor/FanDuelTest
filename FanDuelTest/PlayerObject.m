@@ -14,7 +14,7 @@
 -(instancetype)initWithId:(int)player_id
                First_Name:(NSString *)first_name
                 Last_Name:(NSString *)last_name
-                     FPPG:(int)fppg
+                     FPPG:(float)fppg
                 ImageDict:(NSDictionary *)imageDict
 {
     self = [super init];

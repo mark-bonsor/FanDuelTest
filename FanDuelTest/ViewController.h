@@ -12,8 +12,14 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *btnPlayer1;
 @property (strong, nonatomic) IBOutlet UIButton *btnPlayer2;
-@property (strong, nonatomic) IBOutlet UIImageView *imgPlayer1;
-@property (strong, nonatomic) IBOutlet UIImageView *imgPlayer2;
+@property (strong, nonatomic) IBOutlet UIButton *btnPlayer1_img;
+@property (strong, nonatomic) IBOutlet UIButton *btnPlayer2_img;
+@property (strong, nonatomic) IBOutlet UILabel *gameInstruction;
+@property (strong, nonatomic) IBOutlet UILabel *gameScore;
+@property (strong, nonatomic) IBOutlet UILabel *player1_fppg;
+@property (strong, nonatomic) IBOutlet UILabel *player2_fppg;
+@property (strong, nonatomic) IBOutlet UILabel *choiceResult;
+@property (strong, nonatomic) IBOutlet UIButton *btnNewSelection;
 
 - (IBAction)choosePlayer1;
 - (IBAction)choosePlayer2;
