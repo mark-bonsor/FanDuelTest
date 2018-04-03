@@ -15,6 +15,8 @@
 		BEAD8137207370F8001A632C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BEAD8135207370F8001A632C /* LaunchScreen.storyboard */; };
 		BEAD8142207370F8001A632C /* FanDuelTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BEAD8141207370F8001A632C /* FanDuelTestTests.m */; };
 		BEAD814D207370F8001A632C /* FanDuelTestUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = BEAD814C207370F8001A632C /* FanDuelTestUITests.m */; };
+		BEAD815B207377C4001A632C /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BEAD815A207377C4001A632C /* libOCMock.a */; };
+		BEAD815E20737B6D001A632C /* PlayerObject.m in Sources */ = {isa = PBXBuildFile; fileRef = BEAD815D20737B6D001A632C /* PlayerObject.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,9 @@
 		BEAD8148207370F8001A632C /* FanDuelTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FanDuelTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEAD814C207370F8001A632C /* FanDuelTestUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FanDuelTestUITests.m; sourceTree = "<group>"; };
 		BEAD814E207370F8001A632C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BEAD815A207377C4001A632C /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOCMock.a; path = usr/lib/libOCMock.a; sourceTree = "<group>"; };
+		BEAD815C20737B6D001A632C /* PlayerObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerObject.h; sourceTree = "<group>"; };
+		BEAD815D20737B6D001A632C /* PlayerObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerObject.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEAD815B207377C4001A632C /* libOCMock.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +87,7 @@
 		BEAD811B207370F8001A632C = {
 			isa = PBXGroup;
 			children = (
+				BEAD815A207377C4001A632C /* libOCMock.a */,
 				BEAD8126207370F8001A632C /* FanDuelTest */,
 				BEAD8140207370F8001A632C /* FanDuelTestTests */,
 				BEAD814B207370F8001A632C /* FanDuelTestUITests */,
@@ -105,6 +112,8 @@
 				BEAD812B207370F8001A632C /* AppDelegate.m */,
 				BEAD812D207370F8001A632C /* ViewController.h */,
 				BEAD812E207370F8001A632C /* ViewController.m */,
+				BEAD815C20737B6D001A632C /* PlayerObject.h */,
+				BEAD815D20737B6D001A632C /* PlayerObject.m */,
 				BEAD8130207370F8001A632C /* Main.storyboard */,
 				BEAD8133207370F8001A632C /* Assets.xcassets */,
 				BEAD8135207370F8001A632C /* LaunchScreen.storyboard */,
@@ -270,6 +279,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEAD815E20737B6D001A632C /* PlayerObject.m in Sources */,
 				BEAD812F207370F8001A632C /* ViewController.m in Sources */,
 				BEAD812C207370F8001A632C /* AppDelegate.m in Sources */,
 				BEAD8129207370F8001A632C /* main.m in Sources */,
@@ -435,8 +445,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/usr/include";
 				INFOPLIST_FILE = FanDuelTestTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/usr/lib",
+				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = MiB.FanDuelTestTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FanDuelTest.app/FanDuelTest";
@@ -447,8 +463,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/usr/include";
 				INFOPLIST_FILE = FanDuelTestTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/usr/lib",
+				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = MiB.FanDuelTestTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FanDuelTest.app/FanDuelTest";
@@ -498,6 +520,7 @@
 				BEAD8153207370F8001A632C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BEAD8154207370F8001A632C /* Build configuration list for PBXNativeTarget "FanDuelTestTests" */ = {
 			isa = XCConfigurationList;
@@ -506,6 +529,7 @@
 				BEAD8156207370F8001A632C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BEAD8157207370F8001A632C /* Build configuration list for PBXNativeTarget "FanDuelTestUITests" */ = {
 			isa = XCConfigurationList;
@@ -514,6 +538,7 @@
 				BEAD8159207370F8001A632C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
