@@ -1,5 +1,4 @@
 # FanDuelTest
-Fan Duel Test App
+Fan Duel App Challenge
 
-Demo App for Fan Duel App Challenge
 by Mark Bonsor
