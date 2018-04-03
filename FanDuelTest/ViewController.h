@@ -25,7 +25,7 @@
 - (IBAction)choosePlayer2;
 
 - (BOOL)load_playerJSON;
-- (void)selectRandomPlayers;
+- (void)selectRandomPlayers_withNoDraw;
 
 
 @end

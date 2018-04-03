@@ -22,7 +22,9 @@
 @property (nonatomic,strong) PlayerObject *randomPlayer2;
 
 @property (nonatomic) int currentGameScore;
+@property (nonatomic) int maxGameScore;
 @property (nonatomic) BOOL awaitingChoice;
+@property (nonatomic) BOOL gameInProgress;
 
 @end
 
@@ -32,11 +34,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _maxGameScore = 10;
+    
     [self load_playerJSON];
     
-    _currentGameScore = 0;
-    [self showGameScore];
+    [self startNewGame];
     
+}
+
+-(void)startNewGame {
+    
+    [self prepareForNewGame];
     [self selectRandomPlayers_withNoDraw];
     
 }
@@ -73,17 +81,15 @@
                 NSDictionary *imageDict = [aDictionary objectForKey:@"images"];
                 NSDictionary *defaultImageDict = [imageDict objectForKey:@"default"];
                 
-                float fppgValue = 0.0f;
-                if ([aDictionary objectForKey:@"fppg"]!=[NSNull null]) {
-                    fppgValue = [[aDictionary objectForKey:@"fppg"] floatValue];
+                if ([aDictionary objectForKey:@"fppg"]!=[NSNull null]) { // ignore players with null fppg...
+                    
+                    PlayerObject *currenPlayer = [[PlayerObject alloc]initWithId:[[aDictionary objectForKey:@"id"]intValue]
+                                                                      First_Name:[aDictionary objectForKey:@"first_name"]
+                                                                       Last_Name:[aDictionary objectForKey:@"last_name"]
+                                                                            FPPG:[[aDictionary objectForKey:@"fppg"] floatValue]
+                                                                       ImageDict:defaultImageDict];
+                    [self.playerObjectHolderArray addObject:currenPlayer];
                 }
-                
-                PlayerObject *currenPlayer = [[PlayerObject alloc]initWithId:[[aDictionary objectForKey:@"id"]intValue]
-                                                                  First_Name:[aDictionary objectForKey:@"first_name"]
-                                                                   Last_Name:[aDictionary objectForKey:@"last_name"]
-                                                                        FPPG:fppgValue
-                                                                   ImageDict:defaultImageDict];
-                [self.playerObjectHolderArray addObject:currenPlayer];
             }
             
         } else {
@@ -161,12 +167,33 @@
     _player2_fppg.alpha = 1;
     
     _choiceResult.alpha = 1;
-    _btnNewSelection.alpha = 1;
+    
+    if (_currentGameScore<_maxGameScore) {
+        [_btnNewSelection setTitle:@"Next" forState:UIControlStateNormal];
+        _btnNewSelection.alpha = 1;
+    } else {
+        _gameInstruction.text = @"CONGRATULATIONS!";
+        _gameInProgress = FALSE;
+        [_btnNewSelection setTitle:@"Play Again" forState:UIControlStateNormal];
+        _btnNewSelection.alpha = 1;
+    }
 }
 
 
 - (void)showGameScore {
     _gameScore.text = [NSString stringWithFormat:@"%i", _currentGameScore];
+}
+
+
+
+-(void)prepareForNewGame {
+    
+    _gameInstruction.text = @"WHO HAS THE HIGHER FPPG RATING?";
+    _currentGameScore = 0;
+    
+    _gameInProgress = TRUE;
+    
+    [self showGameScore];
 }
 
 
@@ -205,8 +232,12 @@
     }
 }
 
-- (IBAction)newSelection {
-    if (!_awaitingChoice) {
+- (IBAction)nextSelection {
+    
+    if (!_gameInProgress) {
+        [self startNewGame];
+        
+    } else if (!_awaitingChoice) {
         _awaitingChoice = TRUE;
         [self selectRandomPlayers_withNoDraw];
     }
