@@ -18,8 +18,6 @@
 @interface ViewController ()
 
 @property (nonatomic,strong) NSMutableArray *playerObjectHolderArray;
-@property (nonatomic,strong) PlayerObject *randomPlayer1;
-@property (nonatomic,strong) PlayerObject *randomPlayer2;
 
 @property (nonatomic) int currentGameScore;
 @property (nonatomic) int maxGameScore;
@@ -34,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _maxGameScore = 10;
+    _maxGameScore = 10; // The number of correct guesses required for the game to end
     
     [self load_playerJSON];
     
@@ -42,13 +40,8 @@
     
 }
 
--(void)startNewGame {
-    
-    [self prepareForNewGame];
-    [self selectRandomPlayers_withNoDraw];
-    
-}
 
+#pragma mark - JSON Methods
 
 -(NSMutableArray *)playerObjectHolderArray{
     if(!_playerObjectHolderArray) _playerObjectHolderArray = [[NSMutableArray alloc]init];
@@ -81,7 +74,7 @@
                 NSDictionary *imageDict = [aDictionary objectForKey:@"images"];
                 NSDictionary *defaultImageDict = [imageDict objectForKey:@"default"];
                 
-                if ([aDictionary objectForKey:@"fppg"]!=[NSNull null]) { // ignore players with null fppg...
+                if ([aDictionary objectForKey:@"fppg"]!=[NSNull null]) { // discard players with null fppg...
                     
                     PlayerObject *currenPlayer = [[PlayerObject alloc]initWithId:[[aDictionary objectForKey:@"id"]intValue]
                                                                       First_Name:[aDictionary objectForKey:@"first_name"]
@@ -107,9 +100,14 @@
     return playersLoaded;
 }
 
+
+#pragma mark - Player Selection Methods
+
 -(void)selectRandomPlayers_withNoDraw{
     
     [self selectRandomPlayers];
+    
+    // Ensure that the selected players have different fppg values...
     
     while (_randomPlayer1.fppg == _randomPlayer2.fppg) {
         [self selectRandomPlayers];
@@ -132,6 +130,11 @@
     NSString *player1_name = [NSString stringWithFormat:@"%@ %@", _randomPlayer1.first_name, _randomPlayer1.last_name];
     NSString *player2_name = [NSString stringWithFormat:@"%@ %@", _randomPlayer2.first_name, _randomPlayer2.last_name];
     
+    _btnPlayer1.titleLabel.minimumScaleFactor = 0.5f;
+    _btnPlayer1.titleLabel.adjustsFontSizeToFitWidth = YES;
+    _btnPlayer2.titleLabel.minimumScaleFactor = 0.5f;
+    _btnPlayer2.titleLabel.adjustsFontSizeToFitWidth = YES;
+    
     [_btnPlayer1 setTitle:player1_name forState:UIControlStateNormal];
     [_btnPlayer2 setTitle:player2_name forState:UIControlStateNormal];
     
@@ -148,6 +151,16 @@
     
 }
 
+
+
+#pragma mark - Game Play Methods
+
+-(void)startNewGame {
+    
+    [self prepareForNewGame];
+    [self selectRandomPlayers_withNoDraw];
+    
+}
 
 - (void)showResults:(BOOL)correctGuess {
     
@@ -188,7 +201,7 @@
 
 -(void)prepareForNewGame {
     
-    _gameInstruction.text = @"WHO HAS THE HIGHER FPPG RATING?";
+    _gameInstruction.text = @"WHO HAS THE HIGHER RATING?";
     _currentGameScore = 0;
     
     _gameInProgress = TRUE;
@@ -199,9 +212,15 @@
 
 -(void)prepareForNewPlayers {
     
+    _randomPlayer1 = nil;
+    _randomPlayer2 = nil;
+    
     _player1_fppg.text = @"";
     _player2_fppg.text = @"";
     _choiceResult.text = @"";
+    
+    _player1_tick.alpha = 0;
+    _player2_tick.alpha = 0;
     
     _player1_fppg.alpha = 0;
     _player2_fppg.alpha = 0;
@@ -217,7 +236,16 @@
     if (_awaitingChoice) {
         _awaitingChoice = FALSE;
         
-        [self showResults:(_randomPlayer1.fppg > _randomPlayer2.fppg)];
+        BOOL success = (_randomPlayer1.fppg > _randomPlayer2.fppg);
+        
+        if (success) {
+            _player1_tick.image = [UIImage imageNamed:@"icon_tick.png"];
+        } else {
+            _player1_tick.image = [UIImage imageNamed:@"icon_cross.png"];
+        }
+        _player1_tick.alpha = 1;
+        
+        [self showResults:success];
         
     }
 }
@@ -227,7 +255,16 @@
     if (_awaitingChoice) {
         _awaitingChoice = FALSE;
         
-        [self showResults:(_randomPlayer2.fppg > _randomPlayer1.fppg)];
+        BOOL success = (_randomPlayer2.fppg > _randomPlayer1.fppg);
+        
+        if (success) {
+            _player2_tick.image = [UIImage imageNamed:@"icon_tick.png"];
+        } else {
+            _player2_tick.image = [UIImage imageNamed:@"icon_cross.png"];
+        }
+        _player2_tick.alpha = 1;
+        
+        [self showResults:success];
         
     }
 }

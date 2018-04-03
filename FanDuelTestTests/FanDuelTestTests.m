@@ -17,11 +17,9 @@
 
 - (void)setUp {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
 - (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
     [super tearDown];
 }
 
@@ -40,16 +38,18 @@
     XCTAssertEqual(testValue, TRUE, @"Player JSON failed to load");
     
     testee = nil;
-    
 }
 
 - (void)testSelectRandomPlayers_when_viewLoads {
     
     ViewController* testee = [[ViewController alloc]init];
+    [testee load_playerJSON];
     [testee selectRandomPlayers_withNoDraw];
     
-    testee = nil;
+    XCTAssertFalse(testee.randomPlayer1 == nil, @"Random player 1 not determined");
+    XCTAssertFalse(testee.randomPlayer2 == nil, @"Random player 2 not determined");
     
+    testee = nil;
 }
 
 @end
